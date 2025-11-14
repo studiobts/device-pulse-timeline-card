@@ -28,11 +28,13 @@ No manual YAML editing is required.
 
 ## Installation
 
+<!--
 ### HACS (Recommended)
 
 1. Add the custom repository `REPO` to HACS.
 2. Search for **Device Pulse Timeline Card** and install it.
 3. Add the card to your Lovelace dashboard.
+-->
 
 ### Manual Installation
 
@@ -41,7 +43,7 @@ No manual YAML editing is required.
 3. Add the following resource in your Lovelace configuration:
 
 ```yaml
-url: /local/device-pulse-timeline.js
+url: /local/device-pulse-timeline/device-pulse-timeline.js
 type: module
 ```
 
