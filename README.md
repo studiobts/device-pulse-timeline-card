@@ -1,5 +1,12 @@
 # Device Pulse Timeline Card
 
+## README in Progress
+
+This README file is currently a work in progress.
+Some sections may be incomplete or subject to change.
+
+---
+
 ## Introduction
 
 The **Device Pulse Timeline Card** is a custom Lovelace card designed to work with the [Device Pulse](https://github.com/studiobts/home-assistant-device-pulse) integration.
