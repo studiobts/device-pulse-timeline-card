@@ -432,5 +432,5 @@ window.customCards.push({
     name: 'Device Pulse Timeline',
     description: 'Device Pulse Integration Connection/Disconnection Events Timeline',
     preview: true,
-    documentationURL: 'https://github.com/studiobts/home-assistant-device-pulse-timeline-card'
+    documentationURL: 'https://github.com/studiobts/device-pulse-timeline-card'
 });
