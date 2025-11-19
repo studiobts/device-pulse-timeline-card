@@ -46,7 +46,7 @@ No manual YAML editing is required.
 ### Manual Installation
 
 1. Download the latest release from [https://github.com/studiobts/device-pulse-timeline-card/releases](https://github.com/studiobts/device-pulse-timeline-card/releases).
-2. Copy the `device-pulse-timeline-card.js` and `device-pulse-timeline.css` file to `www/device-pulse-timeline` folder.
+2. Copy the `device-pulse-timeline-card.js` and `device-pulse-timeline-card.css` file to `www/device-pulse-timeline-card` folder.
 3. Add the following resource in your Lovelace configuration:
 
 ```yaml
