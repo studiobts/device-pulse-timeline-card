@@ -50,7 +50,12 @@ class DevicePulseTimeline extends LitElement {
       device_name_clip: config.device_name_clip || true,
       responsive_orientation: config.responsive_orientation || true,
       responsive_breakpoint: config.responsive_breakpoint || 767,
-      ...config
+      ...config,
+      grid_options: {
+        rows: config.grid_options?.rows ?? "auto",
+        columns: config.grid_options?.columns ?? "auto",
+        ...config.grid_options
+      }
     };
   }
   async _subscribeToEvents() {
@@ -161,12 +166,6 @@ class DevicePulseTimeline extends LitElement {
   }
   getCardSize() {
     return 4;
-  }
-  getGridOptions() {
-    return {
-      rows: 4,
-      min_rows: 4
-    };
   }
   render() {
     const today = /* @__PURE__ */ new Date();
