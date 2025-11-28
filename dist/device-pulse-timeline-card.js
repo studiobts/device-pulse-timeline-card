@@ -225,7 +225,8 @@ class DevicePulseTimeline extends LitElement {
                                                     <div class="event-info">
                                                         <div class="event-time">${formatEventTime(event.datetime)}</div>
                                                         <div class="event-status ${event.type}">
-                                                            <span class="event-status-dot"></span> ${event.type === "connected" ? "Connected" : "Disconnected"}
+                                                            <span class="event-status-dot"></span>
+                                                            <span class="event-status-label">${event.type === "connected" ? "Connected" : "Disconnected"}</span>
                                                         </div>
                                                     </div>
                                                     <div class="event-device">${event.device_name}</div>
