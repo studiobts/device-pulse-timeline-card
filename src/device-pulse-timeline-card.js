@@ -111,7 +111,7 @@ class DevicePulseTimeline extends LitElement {
 
     async _loadCSS() {
         try {
-            const cssUrl = new URL('./device-pulse-timeline-card.css', import.meta.url);
+            const cssUrl = new URL(`./device-pulse-timeline-card.css?v=${CARD_VERSION}`, import.meta.url);
             const response = await fetch(cssUrl);
             const css = await response.text();
             const style = document.createElement('style');
