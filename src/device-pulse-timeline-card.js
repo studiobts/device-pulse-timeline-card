@@ -3,6 +3,8 @@ import { when } from "https://unpkg.com/lit@3.1.2/directives/when.js?module";
 import { repeat } from 'https://unpkg.com/lit@3.1.2/directives/repeat.js?module';
 import { classMap } from 'https://unpkg.com/lit@3.1.2/directives/class-map.js?module';
 
+const CARD_VERSION = "1.0.5";
+
 class DevicePulseTimeline extends LitElement {
     static properties = {
         _events: {state: true},
@@ -434,3 +436,9 @@ window.customCards.push({
     preview: true,
     documentationURL: 'https://github.com/studiobts/device-pulse-timeline-card'
 });
+
+console.info(
+    `%c DEVICE-PULSE-TIMELINE-CARD %c v${CARD_VERSION} `,
+    "background: #1976d2; color: white; font-weight: bold; padding: 2px 6px; border-radius: 4px 0 0 4px;",
+    "background: #ff7043; color: white; font-weight: bold; padding: 2px 6px; border-radius: 0 4px 4px 0;"
+);
