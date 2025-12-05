@@ -22,6 +22,7 @@ class DevicePulseTimeline extends LitElement {
     this._forceVertical = false;
     this._filterByDeviceId = null;
     this._highlightByDeviceId = null;
+    this._grid_options_rows = null;
   }
   static getStubConfig() {
     return {
@@ -58,6 +59,7 @@ class DevicePulseTimeline extends LitElement {
         ...config.grid_options
       }
     };
+    this._grid_options_rows = config.grid_options?.rows ?? "auto";
   }
   async _subscribeToEvents() {
     if (!this._hass?.connection || this._unsubscribes?.length) {
@@ -93,7 +95,7 @@ class DevicePulseTimeline extends LitElement {
   }
   async _loadCSS() {
     try {
-      const cssUrl = new URL("./device-pulse-timeline-card.css", import.meta.url);
+      const cssUrl = new URL(`./device-pulse-timeline-card.css?v=${CARD_VERSION}`, import.meta.url);
       const response = await fetch(cssUrl);
       const css2 = await response.text();
       const style = document.createElement("style");
@@ -190,22 +192,24 @@ class DevicePulseTimeline extends LitElement {
         shiftLeft = "single";
       }
     }
+    let fit = this._grid_options_rows && this._grid_options_rows !== "auto";
     return html`
             <ha-card>
-                <div class="card">
+                <div class="card ${fit ? "fit-rows" : ""}">
                     <div class="header">
                         <h2>${this._config.title}</h2>
                         <p>Latest ${this._config.hours_back} hours</p>
                     </div>
-                    <div class=${classMap({
+                    <div class="content">
+                        <div class=${classMap({
       timeline: true,
       [`timeline-${orientation}`]: true,
       "timeline-empty": events.length === 0,
       "timeline-highlighting-events": this._highlightByDeviceId,
       "timeline-device-name-clip": this._config.device_name_clip
     })}>
-                        <div class="timeline-content shift-${shiftLeft}">
-                            ${when(
+                            <div class="timeline-content shift-${shiftLeft}">
+                                ${when(
       events.length === 0,
       () => this._initialized ? html`<div class="timeline-empty-state"> No Events occurred in the last ${this._config.hours_back} hours </div>` : html``,
       () => repeat(
@@ -215,33 +219,34 @@ class DevicePulseTimeline extends LitElement {
           const nextEvent = events[index + 1];
           const insertDate = !nextEvent || event.datetime.toDateString() !== nextEvent.datetime.toDateString();
           return html`
-                                            <div class=${classMap({
+                                                <div class=${classMap({
             event: true,
             [`event-${event.type}`]: true,
             "event-highlight": this._highlightByDeviceId === event.device_id,
             "fade-in": event.fresh
           })}>
-                                                <div class="event-marker ${event.type}"></div>
-                                                <div class="event-content" @click=${() => this._highlightByDevice(!this._highlightByDeviceId ? event.device_id : null)}>
-                                                    <div class="event-info">
-                                                        <div class="event-time">${formatEventTime(event.datetime)}</div>
-                                                        <div class="event-status ${event.type}">
-                                                            <span class="event-status-dot"></span>
-                                                            <span class="event-status-label">${event.type === "connected" ? "Connected" : "Disconnected"}</span>
+                                                    <div class="event-marker ${event.type}"></div>
+                                                    <div class="event-content" @click=${() => this._highlightByDevice(!this._highlightByDeviceId ? event.device_id : null)}>
+                                                        <div class="event-info">
+                                                            <div class="event-time">${formatEventTime(event.datetime)}</div>
+                                                            <div class="event-status ${event.type}">
+                                                                <span class="event-status-dot"></span>
+                                                                <span class="event-status-label">${event.type === "connected" ? "Connected" : "Disconnected"}</span>
+                                                            </div>
                                                         </div>
+                                                        <div class="event-device">${event.device_name}</div>
                                                     </div>
-                                                    <div class="event-device">${event.device_name}</div>
                                                 </div>
-                                            </div>
-                                            ${!insertDate ? "" : html`
-                                                    <div class="timeline-marker timeline-marker-date">
-                                                        <div class="timeline-marker-content">${formatTimelineDate(event.datetime)}</div>
-                                                    </div>
-                                                `}
-                                        `;
+                                                ${!insertDate ? "" : html`
+                                                        <div class="timeline-marker timeline-marker-date">
+                                                            <div class="timeline-marker-content">${formatTimelineDate(event.datetime)}</div>
+                                                        </div>
+                                                    `}
+                                            `;
         }
       )
     )}
+                            </div>
                         </div>
                     </div>
                 </div>

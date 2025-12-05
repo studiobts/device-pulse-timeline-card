@@ -5,13 +5,23 @@
     --device-pulse-timeline-color-connected: #2ea043;
 }
 .card {
+    display: flex;
+    flex-direction: column;
     background: var(--ha-card-background, var(--card-background-color));
     border-radius: var(--ha-card-border-radius, 12px);
-    padding: 24px;
+
+}
+.fit-rows {
+    height: calc((var(--row-size, 1) * (var(--row-height) + var(--row-gap))) - var(--row-gap));
 }
 .header {
-    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
     text-align: center;
+    align-items: center;
+    justify-content: flex-end;
+    height: 70px;
+    min-height: 70px;
 }
 .header h2 {
     font-size: 18px;
@@ -23,6 +33,12 @@
     font-size: 13px;
     color: var(--secondary-text-color);
     margin: 0;
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
 }
 
 /* Events */
@@ -187,6 +203,7 @@
 .timeline {
     position: relative;
     padding: 0 10px;
+    margin: 0 20px;
     transition: padding 0.3s ease;
 }
 .timeline-content {
@@ -240,6 +257,9 @@
 }
 
 /* Timeline Option: Layout */
+.timeline-vertical {
+    overflow-y: auto;
+}
 .timeline-horizontal {
     overflow-x: auto;
 }
