@@ -3,7 +3,7 @@ import { when } from "https://unpkg.com/lit@3.1.2/directives/when.js?module";
 import { repeat } from "https://unpkg.com/lit@3.1.2/directives/repeat.js?module";
 import { classMap } from "https://unpkg.com/lit@3.1.2/directives/class-map.js?module";
 import { cardStyles } from "./device-pulse-timeline-card-style.js";
-const CARD_VERSION = "1.0.6";
+const CARD_VERSION = "1.0.7";
 class DevicePulseTimeline extends LitElement {
   static properties = {
     _events: { state: true },
