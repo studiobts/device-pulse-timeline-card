@@ -1,7 +1,8 @@
-import { LitElement, html, css } from "https://unpkg.com/lit@3.1.2/index.js?module";
+import { LitElement, html } from "https://unpkg.com/lit@3.1.2/index.js?module";
 import { when } from "https://unpkg.com/lit@3.1.2/directives/when.js?module";
 import { repeat } from 'https://unpkg.com/lit@3.1.2/directives/repeat.js?module';
 import { classMap } from 'https://unpkg.com/lit@3.1.2/directives/class-map.js?module';
+import { cardStyles } from './device-pulse-timeline-card-style.js';
 
 const CARD_VERSION = "1.0.6";
 
@@ -12,6 +13,8 @@ class DevicePulseTimeline extends LitElement {
         _filterByDeviceId: {state: true},
         _highlightByDeviceId: {state: true},
     }
+
+    static styles = cardStyles;
 
     constructor() {
         super();
@@ -111,19 +114,6 @@ class DevicePulseTimeline extends LitElement {
         super.disconnectedCallback();
     }
 
-    async _loadCSS() {
-        try {
-            const cssUrl = new URL(`./device-pulse-timeline-card.css?v=${CARD_VERSION}`, import.meta.url);
-            const response = await fetch(cssUrl);
-            const css = await response.text();
-            const style = document.createElement('style');
-            style.textContent = css;
-            this.renderRoot.appendChild(style);
-        } catch (error) {
-            console.error('Unable to load card CSS file:', error);
-        }
-    }
-
     async _loadDevices() {
         const devices = await this._hass.callWS({type: "config/device_registry/list"});
         this._devices = Object.fromEntries(devices.map(d => [d.id, d.name_by_user || d.name]));
@@ -155,10 +145,7 @@ class DevicePulseTimeline extends LitElement {
     }
 
     async _loadResources() {
-        await Promise.all([
-            this._loadCSS(),
-            this._loadDevices()
-        ]);
+        await this._loadDevices();
         await this._loadEvents();
     }
 
