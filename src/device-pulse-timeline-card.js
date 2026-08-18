@@ -1,7 +1,7 @@
-import { LitElement, html } from "https://unpkg.com/lit@3.1.2/index.js?module";
-import { when } from "https://unpkg.com/lit@3.1.2/directives/when.js?module";
-import { repeat } from 'https://unpkg.com/lit@3.1.2/directives/repeat.js?module';
-import { classMap } from 'https://unpkg.com/lit@3.1.2/directives/class-map.js?module';
+import { LitElement, html } from "lit";
+import { when } from "lit/directives/when.js";
+import { repeat } from "lit/directives/repeat.js";
+import { classMap } from "lit/directives/class-map.js";
 import { cardStyles } from './device-pulse-timeline-card-style.js';
 
 const CARD_VERSION = "1.0.7";
